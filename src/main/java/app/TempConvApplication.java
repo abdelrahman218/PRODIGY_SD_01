@@ -3,11 +3,15 @@ package app;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventType;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -56,6 +60,38 @@ public class TempConvApplication extends Application {
         buttons.setSpacing(5);
         buttons.setAlignment(Pos.CENTER_RIGHT);
 
+        //Event-Handlers
+        btnClr.addEventHandler(MouseEvent.MOUSE_CLICKED,e->{
+            tfUserInput.clear();
+            taResults.clear();
+        });
+        btnConv.addEventHandler(MouseEvent.MOUSE_CLICKED,e->{
+            int selected=tempUnit.getSelectionModel().getSelectedIndex();
+            String temperature=tfUserInput.getText().trim();
+            if(temperature.isEmpty()){
+                taResults.setText("Please Enter a Value!");
+                return;
+            }
+            try{
+                double value=Double.parseDouble(temperature);
+                switch (selected){
+                    case 0:
+                        ArrayList<Double> res1=TempConv.ConvCelsius(value);
+                        taResults.setText("Kelvin: "+res1.get(0)+"\n\n"+"Fahrenheit: "+res1.get(1));
+                        break;
+                    case 1:
+                        ArrayList<Double> res2=TempConv.ConvKelvin(value);
+                        taResults.setText("Celsius: "+res2.get(0)+"\n\n"+"Fahrenheit: "+res2.get(1));
+                        break;
+                    case 2:
+                        ArrayList<Double> res3=TempConv.ConvFahrenheit(value);
+                        taResults.setText("Celsius: "+res3.get(0)+"\n\n"+"Kelvin: "+res3.get(1));
+                        break;
+                }}
+            catch (NumberFormatException excep){
+                taResults.setText("Invalid Input!");
+            }
+        });
         //Declaring and Setting Scene
         Scene scene = new Scene(root, 1250, 700);
         scene.getStylesheets().add(TempConvApplication.class.getResource("style.css").toExternalForm());
