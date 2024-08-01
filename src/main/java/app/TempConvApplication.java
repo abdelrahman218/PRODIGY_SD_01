@@ -3,6 +3,7 @@ package app;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -17,23 +18,47 @@ import java.util.Collections;
 public class TempConvApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        //Declaring All Nodes
+        Label title=new Label("Temperature Converter");
         TextField tfUserInput=new TextField();
         ObservableList<String> units= FXCollections.observableArrayList("Celsius","Kelvin","Fahrenheit");
         ComboBox<String> tempUnit=new ComboBox<>(units);
-        TextArea taResults=new TextArea();
+        TextArea taResults=new TextArea("this is a trial\n\nthis is a trial");
         Button btnConv=new Button("Convert"),btnClr=new Button("Clear");
+
+        //Setting Nodes Properties
         tfUserInput.setPromptText("Enter a Value");
         tempUnit.getSelectionModel().select(0);
         taResults.setEditable(false);
+
+        //Setting Classes to Nodes for CSS
+        title.getStyleClass().add("title");
+        tfUserInput.getStyleClass().addAll("textField","input");
+        taResults.getStyleClass().addAll("textField","output");
+        tempUnit.getStyleClass().add("box");
+        btnConv.getStyleClass().addAll("box","button");
+        btnClr.getStyleClass().addAll("box","button");
+
+        //Declaring Panes
         HBox buttons=new HBox(btnClr,btnConv);
         GridPane root=new GridPane();
-        root.add(new Label("Temperature Converter"),0,0,3,1);
+
+        //Adding Nodes to Root
+        root.add(title,0,0,3,1);
         root.add(tfUserInput,0,1);
         root.add(tempUnit,1,1);
         root.add(taResults,0,2,3,1);
         root.add(buttons,2,3);
-        Scene scene = new Scene(root, 320, 240);
-        scene.getStylesheets().add((new File("").getAbsolutePath()).concat("\\src\\main\\resources\\app\\style.css"));
+        root.setHgap(5);
+        root.setVgap(10);
+
+        //Setting Panes Properties
+        buttons.setSpacing(5);
+        buttons.setAlignment(Pos.CENTER_RIGHT);
+
+        //Declaring and Setting Scene
+        Scene scene = new Scene(root, 1250, 700);
+        scene.getStylesheets().add(TempConvApplication.class.getResource("style.css").toExternalForm());
         stage.setTitle("Temperature Converter");
         stage.setScene(scene);
         stage.show();
