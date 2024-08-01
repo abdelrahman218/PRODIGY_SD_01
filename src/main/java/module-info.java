@@ -8,6 +8,6 @@ module com.example.temperature_converter {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
 
-    opens com.example.temperature_converter to javafx.fxml;
-    exports com.example.temperature_converter;
+    opens app to javafx.fxml;
+    exports app;
 }
