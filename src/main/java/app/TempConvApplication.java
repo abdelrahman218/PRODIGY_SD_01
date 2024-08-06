@@ -7,6 +7,7 @@ import javafx.event.EventType;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -39,7 +40,7 @@ public class TempConvApplication extends Application {
         title.getStyleClass().add("title");
         tfUserInput.getStyleClass().addAll("textField","input");
         taResults.getStyleClass().addAll("textField","output");
-        tempUnit.getStyleClass().add("box");
+        tempUnit.getStyleClass().addAll("box","combo");
         btnConv.getStyleClass().addAll("box","button");
         btnClr.getStyleClass().addAll("box","button");
 
@@ -77,15 +78,15 @@ public class TempConvApplication extends Application {
                 switch (selected){
                     case 0:
                         ArrayList<Double> res1=TempConv.ConvCelsius(value);
-                        taResults.setText("Kelvin: "+res1.get(0)+"\n\n"+"Fahrenheit: "+res1.get(1));
+                        taResults.setText("Kelvin: "+res1.get(0)+" K\n\n"+"Fahrenheit: "+res1.get(1)+" °F");
                         break;
                     case 1:
                         ArrayList<Double> res2=TempConv.ConvKelvin(value);
-                        taResults.setText("Celsius: "+res2.get(0)+"\n\n"+"Fahrenheit: "+res2.get(1));
+                        taResults.setText("Celsius: "+res2.get(0)+" °C\n\n"+"Fahrenheit: "+res2.get(1)+" °F");
                         break;
                     case 2:
                         ArrayList<Double> res3=TempConv.ConvFahrenheit(value);
-                        taResults.setText("Celsius: "+res3.get(0)+"\n\n"+"Kelvin: "+res3.get(1));
+                        taResults.setText("Celsius: "+res3.get(0)+" °C\n\n"+"Kelvin: "+res3.get(1)+" K");
                         break;
                 }}
             catch (NumberFormatException excep){
@@ -95,6 +96,7 @@ public class TempConvApplication extends Application {
         //Declaring and Setting Scene
         Scene scene = new Scene(root, 1250, 700);
         scene.getStylesheets().add(TempConvApplication.class.getResource("style.css").toExternalForm());
+        stage.getIcons().add(new Image(TempConvApplication.class.getResource("app icon.png").toExternalForm()));
         stage.setTitle("Temperature Converter");
         stage.setScene(scene);
         stage.show();

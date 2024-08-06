@@ -3,12 +3,17 @@
     -fx-font-family: "Courier New";
     -fx-base: rgba(4, 138, 122, 0.05);
     -fx-background: linear-gradient(to bottom, rgb(1, 74, 66), rgb(4, 124, 113));
+    -fx-focus-color: rgba(101, 95, 95, 0.29);
+    -fx-faint-focus-color: rgba(101, 95, 95,0.29);
     -fx-alignment: center;
 }
 .title{
     -fx-font-size: 36pt;
     -fx-text-fill: rgb(255,255,255);
     -fx-text-alignment: center;
+}
+.combo{
+    -fx-base: rgba(255, 255, 255, 0.37);
 }
 .box,
 .textField{
